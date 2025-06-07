@@ -1,85 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Mismatch</title>
-    <style>
-        /* Global Styles */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mismatch</title>
+  <style>
+    /* Global Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
 
-        body {
-            background-color: #121212; /* Dark background */
-            color: #e0e0e0; /* Soft light gray text */
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+    body {
+      background-color: #121212; /* Dark background */
+      color: #e0e0e0;            /* Soft light gray text */
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
-        /* Top Bar */
-        .top-bar {
-            background-color: #1e1e1e; /* Darker gray for top bar */
-            border-bottom: 2px solid #3baecf; /* Muted Cyanic Sky Blue */
-            padding: 16px 32px;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* deeper shadow for night */
-        }
+    /* Top Bar */
+    .top-bar {
+      background-color: #1e1e1e;
+      border-bottom: 2px solid #3baecf;
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #e0e0e0; /* Soft light text */
-        }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #e0e0e0;
+    }
 
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+    }
 
-        .main-button {
-    background-color: #3baecf; /* Muted Cyanic Sky Blue */
-    color: #121212; /* Very dark text inside button for contrast */
-    padding: 16px 32px;
-    text-decoration: none;
-    font-size: 1.25rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
-    transition: background-color 0.3s ease, padding 0.2s ease, font-size 0.2s ease, box-shadow 0.3s ease;
-}
+    /* Outlined box with no background */
+    .login-box {
+      background-color: transparent;
+      border: 1.5px solid #6e6e6e; /* subtle grey outline */
+      border-radius: 8px;
+      padding: 32px 28px;
+      max-width: 320px;
+      width: 100%;
+      color: #e0e0e0;
+      box-shadow: none;
+    }
 
-.main-button:hover {
-    background-color: #349ebe; /* Slightly darker on hover */
-    padding: 20px 38px; /* Increased padding for bigger button */
-    font-size: 1.4rem; /* Slightly bigger font size */
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7);
-}
+    .login-box h2 {
+      margin-bottom: 16px;
+      font-size: 1.25rem;
+      text-align: center;
+      color: #e0e0e0;
+      font-weight: 600;
+    }
 
-.main-button:active {
-    padding: 15px 30px; /* Slightly smaller on click */
-    font-size: 1.2rem;
-}
+    .login-box label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      color: #b0b0b0;
+    }
 
-    </style>
+    .login-box input[type="password"] {
+      width: 100%;
+      padding: 10px 14px;
+      margin-bottom: 24px;
+      border: 1.5px solid #6e6e6e;
+      border-radius: 6px;
+      font-size: 1rem;
+      background-color: #1e1e1e;
+      color: #e0e0e0;
+      outline: none;
+      transition: border-color 0.3s ease, background-color 0.3s ease;
+    }
+
+    .login-box input[type="password"]:focus {
+      border-color: #3baecf;
+      background-color: #262626;
+    }
+
+    /* Button */
+    .main-button {
+      display: block;
+      width: 100%;
+      text-align: center;
+      background-color: transparent;
+      color: #3baecf;
+      padding: 12px 0;
+      font-size: 1rem;
+      border: 2px solid #3baecf;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+      user-select: none;
+    }
+
+    .main-button:hover,
+    .main-button:focus {
+      background-color: #3baecf;   /* Outline becomes background */
+      color: #121212;              /* Background color becomes text color */
+      border-color: #121212;
+      outline: none;
+    }
+
+    .main-button:active {
+      background-color: #2e95b8;
+      border-color: #1f6f89;
+      color: #121212;
+    }
+  </style>
 </head>
 <body>
-    <!-- Top Navigation Bar -->
-    <header class="top-bar">
-        <div class="logo">Mismatch</div>
-    </header>
+  <!-- Top Navigation Bar -->
+  <header class="top-bar">
+    <div class="logo">Mismatch</div>
+  </header>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <a href="https://drive.google.com" target="_blank" class="main-button">GDrive Link</a>
-    </main>
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="login-box">
+      <h2>Enter Password</h2>
+      <form action="https://drive.google.com" method="get" target="_blank">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="••••••••"
+          required
+          autocomplete="current-password"
+        />
+        <button type="submit" class="main-button">GDrive Link</button>
+      </form>
+    </div>
+  </main>
 </body>
 </html>
