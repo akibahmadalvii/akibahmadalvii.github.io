@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Mismatch</title>
+    <style>
+        /* Global Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #121212; /* Dark background */
+            color: #e0e0e0; /* Soft light gray text */
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background-color: #1e1e1e; /* Darker gray for top bar */
+            border-bottom: 2px solid #3baecf; /* Muted Cyanic Sky Blue */
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* deeper shadow for night */
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #e0e0e0; /* Soft light text */
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .main-button {
+            background-color: #3baecf; /* Muted Cyanic Sky Blue */
+            color: #121212; /* Very dark text inside button for contrast */
+            padding: 16px 32px;
+            text-decoration: none;
+            font-size: 1.25rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .main-button:hover {
+            background-color: #349ebe; /* Slightly darker on hover */
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7);
+        }
+
+        .main-button:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="logo">Mismatch</div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <a href="https://drive.google.com" target="_blank" class="main-button">GDrive Link</a>
+    </main>
+</body>
+</html>
