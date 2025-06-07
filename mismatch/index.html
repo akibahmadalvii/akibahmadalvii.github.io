@@ -47,25 +47,28 @@
         }
 
         .main-button {
-            background-color: #3baecf; /* Muted Cyanic Sky Blue */
-            color: #121212; /* Very dark text inside button for contrast */
-            padding: 16px 32px;
-            text-decoration: none;
-            font-size: 1.25rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-        }
+    background-color: #3baecf; /* Muted Cyanic Sky Blue */
+    color: #121212; /* Very dark text inside button for contrast */
+    padding: 16px 32px;
+    text-decoration: none;
+    font-size: 1.25rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+    transition: background-color 0.3s ease, padding 0.2s ease, font-size 0.2s ease, box-shadow 0.3s ease;
+}
 
-        .main-button:hover {
-            background-color: #349ebe; /* Slightly darker on hover */
-            transform: scale(1.05);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7);
-        }
+.main-button:hover {
+    background-color: #349ebe; /* Slightly darker on hover */
+    padding: 20px 38px; /* Increased padding for bigger button */
+    font-size: 1.4rem; /* Slightly bigger font size */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7);
+}
 
-        .main-button:active {
-            transform: scale(0.98);
-        }
+.main-button:active {
+    padding: 15px 30px; /* Slightly smaller on click */
+    font-size: 1.2rem;
+}
+
     </style>
 </head>
 <body>
