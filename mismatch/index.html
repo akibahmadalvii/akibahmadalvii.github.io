@@ -168,82 +168,80 @@
 
   <script>
     (() => {
-      // Passwords map: password -> URL
-      const passwordMap = {
-        "FTSSC2027": "https://drive.google.com/drive/folders/1yzFzVVUFb2vDVgkGecSlEnARYKdz_AYx?usp=drive_link",
-        "AAG-2025": "https://akibahmadalvii.github.io",
-        // Your 3 new password+URLs:
-        "Download99": "https://drive.google.com/drive/folders/1yzFzVVUFb2vDVgkGecSlEnARYKdz_AYx?usp=drive_link",
-        "ADMIN123": "https://example.com/admin",
-        "GUEST2025": "https://example.com/guest"
-      };
+  // Passwords map: password -> URL
+  const passwordMap = {
+    "FTSSC2027": "https://drive.google.com/drive/folders/1yzFzVVUFb2vDVgkGecSlEnARYKdz_AYx?usp=drive_link",
+    "AAG-2025": "https://akibahmadalvii.github.io",
+    "Download99": "https://drive.google.com/drive/folders/1yzFzVVUFb2vDVgkGecSlEnARYKdz_AYx?usp=drive_link",
+    "ADMIN123": "https://example.com/admin",
+    "GUEST2025": "https://example.com/guest"
+  };
 
-      const input = document.getElementById('password');
-      const btn = document.getElementById('submitBtn');
-      const form = document.getElementById('loginForm');
-      let typingTimer;
-      const typingDelay = 800; // ms after user stops typing
+  const input = document.getElementById('password');
+  const btn = document.getElementById('submitBtn');
+  const form = document.getElementById('loginForm');
+  let typingTimer;
+  const typingDelay = 800; // ms after user stops typing
 
-      // Reset button disabled and styles
-      function resetButton() {
-        btn.disabled = true;
-        btn.classList.remove('enabled');
-        btn.style.pointerEvents = "none";
-        btn.removeAttribute('formaction');
-        btn.removeAttribute('href');
-      }
+  // Reset button disabled and styles
+  function resetButton() {
+    btn.disabled = true;
+    btn.classList.remove('enabled');
+    btn.style.pointerEvents = "none";
+  }
 
-      // Called after typing pause
-      function validatePassword() {
-        const val = input.value.trim();
+  // Called after typing pause
+  function validatePassword() {
+    const val = input.value.trim();
 
-        if (val === "") {
-          input.classList.remove('correct', 'incorrect', 'typing');
-          resetButton();
-          return;
-        }
+    if (val === "") {
+      input.classList.remove('correct', 'incorrect', 'typing');
+      resetButton();
+      return;
+    }
 
-        if (passwordMap.hasOwnProperty(val)) {
-          // Correct password
-          input.classList.remove('incorrect', 'typing');
-          input.classList.add('correct');
-          btn.disabled = false;
-          btn.classList.add('enabled');
-          btn.style.pointerEvents = "auto";
+    if (passwordMap.hasOwnProperty(val)) {
+      // Correct password
+      input.classList.remove('incorrect', 'typing');
+      input.classList.add('correct');
+      btn.disabled = false;
+      btn.classList.add('enabled');
+      btn.style.pointerEvents = "auto";
 
-          // Update form action to password URL
-          form.setAttribute('action', passwordMap[val]);
+    } else {
+      // Incorrect password
+      input.classList.remove('correct', 'typing');
+      input.classList.add('incorrect');
+      resetButton();
+    }
+  }
 
-        } else {
-          // Incorrect password
-          input.classList.remove('correct', 'typing');
-          input.classList.add('incorrect');
-          resetButton();
-          form.removeAttribute('action');
-        }
-      }
+  input.addEventListener('input', () => {
+    // While typing, outline white
+    input.classList.add('typing');
+    input.classList.remove('correct', 'incorrect');
 
-      input.addEventListener('input', () => {
-        // While typing, outline white
-        input.classList.add('typing');
-        input.classList.remove('correct', 'incorrect');
+    resetButton();
 
-        resetButton();
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(() => {
+      input.classList.remove('typing');
+      validatePassword();
+    }, typingDelay);
+  });
 
-        clearTimeout(typingTimer);
-        typingTimer = setTimeout(() => {
-          input.classList.remove('typing');
-          validatePassword();
-        }, typingDelay);
-      });
+  form.addEventListener('submit', (e) => {
+    e.preventDefault(); // Prevent form from submitting normally
 
-      // Optional: prevent form submission if disabled
-      form.addEventListener('submit', (e) => {
-        if (btn.disabled) {
-          e.preventDefault();
-        }
-      });
-    })();
+    const val = input.value.trim();
+
+    if (passwordMap.hasOwnProperty(val)) {
+      const url = passwordMap[val];
+      window.open(url, '_blank'); // Open URL in new tab without adding password to URL
+    }
+  });
+})();
+
   </script>
 </body>
 </html>
