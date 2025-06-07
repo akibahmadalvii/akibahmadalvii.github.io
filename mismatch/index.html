@@ -87,8 +87,19 @@
       transition: border-color 0.3s ease, background-color 0.3s ease;
     }
 
+    .login-box input.typing {
+      border-color: white !important;
+    }
+
+    .login-box input.correct {
+      border-color: #3baecf !important; /* cyan */
+    }
+
+    .login-box input.incorrect {
+      border-color: #ff5500 !important; /* reddish orange */
+    }
+
     .login-box input[type="password"]:focus {
-      border-color: #3baecf;
       background-color: #262626;
     }
 
@@ -103,21 +114,27 @@
       font-size: 1rem;
       border: 2px solid #3baecf;
       border-radius: 6px;
-      cursor: pointer;
+      cursor: not-allowed; /* disabled by default */
       font-weight: 600;
       transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
       user-select: none;
+      pointer-events: none; /* disable clicks */
     }
 
-    .main-button:hover,
-    .main-button:focus {
+    .main-button.enabled {
+      cursor: pointer;
+      pointer-events: auto;
+    }
+
+    .main-button:hover.enabled,
+    .main-button:focus.enabled {
       background-color: #3baecf;   /* Outline becomes background */
       color: #121212;              /* Background color becomes text color */
       border-color: #121212;
       outline: none;
     }
 
-    .main-button:active {
+    .main-button:active.enabled {
       background-color: #2e95b8;
       border-color: #1f6f89;
       color: #121212;
@@ -134,19 +151,99 @@
   <main class="main-content">
     <div class="login-box">
       <h2>Enter Password</h2>
-      <form action="https://drive.google.com" method="get" target="_blank">
+      <form id="loginForm" target="_blank" novalidate>
         <label for="password">Password</label>
         <input
           type="password"
           id="password"
           name="password"
           placeholder="••••••••"
-          required
           autocomplete="current-password"
+          required
         />
-        <button type="submit" class="main-button">GDrive Link</button>
+        <button type="submit" id="submitBtn" class="main-button" disabled>Continue</button>
       </form>
     </div>
   </main>
+
+  <script>
+    (() => {
+      // Passwords map: password -> URL
+      const passwordMap = {
+        "FTSSC2027": "https://drive.google.com/drive/folders/1yzFzVVUFb2vDVgkGecSlEnARYKdz_AYx?usp=drive_link",
+        "AAG-2025": "https://akibahmadalvii.github.io",
+        // Your 3 new password+URLs:
+        "DEV2024": "https://example.com/devportal",
+        "ADMIN123": "https://example.com/admin",
+        "GUEST2025": "https://example.com/guest"
+      };
+
+      const input = document.getElementById('password');
+      const btn = document.getElementById('submitBtn');
+      const form = document.getElementById('loginForm');
+      let typingTimer;
+      const typingDelay = 800; // ms after user stops typing
+
+      // Reset button disabled and styles
+      function resetButton() {
+        btn.disabled = true;
+        btn.classList.remove('enabled');
+        btn.style.pointerEvents = "none";
+        btn.removeAttribute('formaction');
+        btn.removeAttribute('href');
+      }
+
+      // Called after typing pause
+      function validatePassword() {
+        const val = input.value.trim();
+
+        if (val === "") {
+          input.classList.remove('correct', 'incorrect', 'typing');
+          resetButton();
+          return;
+        }
+
+        if (passwordMap.hasOwnProperty(val)) {
+          // Correct password
+          input.classList.remove('incorrect', 'typing');
+          input.classList.add('correct');
+          btn.disabled = false;
+          btn.classList.add('enabled');
+          btn.style.pointerEvents = "auto";
+
+          // Update form action to password URL
+          form.setAttribute('action', passwordMap[val]);
+
+        } else {
+          // Incorrect password
+          input.classList.remove('correct', 'typing');
+          input.classList.add('incorrect');
+          resetButton();
+          form.removeAttribute('action');
+        }
+      }
+
+      input.addEventListener('input', () => {
+        // While typing, outline white
+        input.classList.add('typing');
+        input.classList.remove('correct', 'incorrect');
+
+        resetButton();
+
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(() => {
+          input.classList.remove('typing');
+          validatePassword();
+        }, typingDelay);
+      });
+
+      // Optional: prevent form submission if disabled
+      form.addEventListener('submit', (e) => {
+        if (btn.disabled) {
+          e.preventDefault();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
